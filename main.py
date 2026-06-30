@@ -1,7 +1,42 @@
+import random
+
 
 MAX_LINES = 3
 MAX_BET = 1000
 MIN_BET = 1
+
+ROWS = 3
+COLS = 3
+
+symbol_count = {
+  "A": 2,
+  "B": 4,
+  "C": 6,
+  "D": 8
+}
+
+# what symbols are going to be in each column (generate items that will be in slot machine)
+def get_slot_machine_spin(rows, cols, symbols):
+  all_symbols = []
+  for symbol, symbol_count in symbols.items(): # e.g symbol A, symbol_count 2
+    for _ in range(symbol_count): # loop through symbol_count i.e. 2
+      all_symbols.append(symbol) # add symbol 2 times into all_symbols
+
+  # select what values will go in every single column
+  columns = [] # nested list represents value in column
+  # for every column generate a certain number of symbols
+  for _ in range(cols): # generate a column for every column we have
+    # pick random values for each row in our column
+    column = []
+    current_symbols = all_symbols[:] # copy a list (slice operator)
+    for _ in range(rows):
+      value = random.choice(current_symbols)
+      current_symbols.remove(value) # removes the value so we don't pick it again
+      column.append(value) # add the value to column
+
+    columns.append(column)
+
+  return columns
 
 def deposit():
   while True:
