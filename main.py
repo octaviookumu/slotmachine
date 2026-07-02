@@ -15,6 +15,29 @@ symbol_count = {
   "D": 8
 }
 
+symbol_value = {
+  "A": 5,
+  "B": 4,
+  "C": 3,
+  "D": 2
+}
+
+def check_winnings(columns, lines, bet, values):
+  winnings = 0
+  winning_lines = []
+  for line in range(lines): # looping through every row
+    symbol = columns[0][line] # symbol in the first column of the current row
+    for column in columns: # loop through every column and check for that symbol. if we get to the end without breaking out (meaning the symbols are the same) it means the user won, else: runs
+      symbol_to_check = column[line] # symbol from column at the current row
+      if symbol != symbol_to_check:
+        break # we check the next line i.e [for line in range(lines) runs]
+      # if you break the else statement doesn't run. - 
+    else:  # if there's no break in the for loop the else statement runs
+      winnings += values[symbol] * bet # the bet on each line. they could win on one line and lose on the other
+      winning_lines.append(line + 1)
+
+  return winnings, winning_lines
+
 # what symbols are going to be in each column (generate items that will be in slot machine)
 def get_slot_machine_spin(rows, cols, symbols):
   all_symbols = []
@@ -109,6 +132,9 @@ def main():
 
   slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
   print_slot_machine(slots)
+  winnings, winning_lines = check_winnings(slots, lines, bet, symbol_value)
+  print(f"You won KES{winnings}")
+  print(f"You won on lines:", *winning_lines)
 
 
 main()
