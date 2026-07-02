@@ -38,6 +38,18 @@ def get_slot_machine_spin(rows, cols, symbols):
 
   return columns
 
+def print_slot_machine(columns):
+  # known as transposing
+  # the number of rows is the number of elements in each column
+  for row in range(len(columns[0])): # loop through every row
+    for i, column in enumerate(columns): # for every row we loop through every column
+      if i != len(columns) - 1:
+        print(column[row], end=" | ")
+      else:
+        print(column[row], end="")
+    print()
+
+
 def deposit():
   while True:
     amount = input("What would you like to deposit? KES")
@@ -94,6 +106,9 @@ def main():
       break
 
   print(f"You are betting KES{bet} on {lines} lines. Total bet is equal to: KES{total_bet}")
+
+  slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+  print_slot_machine(slots)
 
 
 main()
